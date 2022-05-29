@@ -330,34 +330,8 @@ void Game::set_level() {
 				return 300;
 			case 7:
 				return 220;
-			case 8:
-				return 130;
-			case 9:
-				return 100;
-			case 10:
-			case 11:
-			case 12:
-				return 80;
-			case 13:
-			case 14:
-			case 15:
-				return 70;
-			case 16:
-			case 17:
-			case 18:
-				return 50;
-			case 19:
-			case 20:
-			case 21:
-			case 22:
-			case 23:
-			case 24:
-			case 25:
-			case 26:
-			case 27:
-			case 28:
-				return 30;
-			default: return 20;
+			
+			default: return 220;
 			}
 		};
 		

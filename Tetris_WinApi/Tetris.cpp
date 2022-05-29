@@ -141,33 +141,11 @@ int Tetris::wm_paint() {
 }
 
 /*-------------------------------------------------------------
-						  WM_KEYDOWN
---------------------------------------------------------------*/
-int Tetris::wm_keydown() {
-	
-	switch (m_wParam) {
-	case VK_LEFT: //стрелка влево
-	case VK_RIGHT: //стрелка вправо
-	case VK_UP: //стрелка вверх
-	case VK_DOWN: //стрелка вниз
-
-		return obj.direct_figure();
-
-	case VK_ESCAPE:
-		return obj.pause();
-
-	
-	default:
-		return DefWindowProc(m_hwnd, m_uMsg, m_wParam, m_lParam);
-	}
-	return 0;
-}
-
-/*-------------------------------------------------------------
 						   WM_TIMER
 --------------------------------------------------------------*/
 int Tetris::wm_timer() {
 
+	obj.get_key_state();
 	obj.down_figure();
 	obj.update_figure();
 	obj.game_state();
@@ -185,4 +163,26 @@ int Tetris::wm_command() {
 		obj.new_game();
 	}
 	return 0;
+}
+
+
+/*-------------------------------------------------------------
+ обработка нажатий клавиш "вверх" и "Esc" (против автогенерации)
+--------------------------------------------------------------*/
+int Tetris::wm_keydown() {
+
+	switch (m_wParam) {
+	
+	case VK_UP: //стрелка вверх
+		return obj.up();
+
+	case VK_DOWN: //стрелка вниз
+		return obj.down();
+
+	case VK_ESCAPE:
+		return obj.pause();
+
+	default:
+		return DefWindowProc(m_hwnd, m_uMsg, m_wParam, m_lParam);
+	}
 }
