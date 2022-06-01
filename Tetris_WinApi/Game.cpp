@@ -116,6 +116,11 @@ void Game::game_state() {
 --------------------------------------------------------------*/
 	set_level();
 
+/*-------------------------------------------------------------
+						Включение музыки
+--------------------------------------------------------------*/
+	play_sound();
+
 }
 
 
@@ -174,10 +179,19 @@ void Game::destroy_row(set<int> Y_cont) {
 
 /*-------------------------------------------------------------
 	  Установка флага мигания и получение мигающих рядов
+---------------------------------------------------------------
+				  Включения звука анимации
 --------------------------------------------------------------*/
 void Game::set_flash(set<int> Y_cont) {
 	y_row_flash = Y_cont;
 	flag_flash = true;
+	
+	if (Y_cont.size() == 4) {
+		system("start sound2.exe"); //звук тетриса
+	}
+	else {
+		system("start sound1.exe"); //включить музыку к анимации мигания
+	}
 }
 
 
@@ -190,6 +204,7 @@ void Game::flash_off() {
 	if (flag_flash && fs == Figure_State::DESTROY) {
 		flag_flash = false; //отключаю флаг анимации
 		flash = Flash::OFF; //убираю мерцание
+
 		update_window();
 	}
 }
@@ -508,4 +523,27 @@ void Game::update_window() {
 
 	InvalidateRect(hwnd, NULL, TRUE);
 	UpdateWindow(hwnd);
+}
+
+/*-------------------------------------------------------------
+							Музыка
+--------------------------------------------------------------*/
+void Game::play_sound() {
+	static Game_State old_gs = Game_State::GAME_OVER;
+	
+	Game_State gs = p_fig->get_game_state();
+
+	if (gs != old_gs) {
+		if (gs == Game_State::PLAY) {
+			PlaySound(L"music.wav", NULL, SND_ASYNC | SND_NODEFAULT | SND_LOOP); //включить основной трек
+		}
+		else if (gs == Game_State::PAUSE) {
+			PlaySound(NULL, NULL, SND_PURGE); //отключить музыку
+		}
+		else if (gs == Game_State::GAME_OVER) {
+			PlaySound(L"twinpix.wav", NULL, SND_ASYNC | SND_NODEFAULT | SND_LOOP); //включить музыку твин-пикс
+		}
+
+	}
+	old_gs = gs;
 }

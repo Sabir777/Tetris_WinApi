@@ -152,6 +152,7 @@
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Parrent.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Tetris.h" />
     <ClInclude Include="Window_Create.h" />
   </ItemGroup>
