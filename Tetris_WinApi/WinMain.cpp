@@ -11,7 +11,6 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) {
 	srand((unsigned int)time(NULL));
-	//PlaySound(L"s.wav", NULL, SND_ASYNC | SND_NODEFAULT | SND_LOOP);
 	Tetris app;
 	app.run();
 }

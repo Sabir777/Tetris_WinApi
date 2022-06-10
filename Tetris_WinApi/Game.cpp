@@ -187,10 +187,19 @@ void Game::set_flash(set<int> Y_cont) {
 	flag_flash = true;
 	
 	if (Y_cont.size() == 4) {
-		system("start sound2.exe"); //звук тетриса
+		STARTUPINFO start_info = { sizeof start_info };
+		PROCESS_INFORMATION proc_info = { 0 };
+		CreateProcess(L"sound2.exe", NULL, NULL, NULL, 0, 0, NULL, NULL, &start_info, &proc_info);
+		CloseHandle(proc_info.hThread);
+		CloseHandle(proc_info.hProcess);
+
 	}
 	else {
-		system("start sound1.exe"); //включить музыку к анимации мигания
+		STARTUPINFO start_info = { sizeof start_info };
+		PROCESS_INFORMATION proc_info = { 0 };
+		CreateProcess(L"sound1.exe", NULL, NULL, NULL, 0, 0, NULL, NULL, &start_info, &proc_info);
+		CloseHandle(proc_info.hThread);
+		CloseHandle(proc_info.hProcess);
 	}
 }
 
