@@ -7,6 +7,7 @@
 #include <algorithm> //std::find
 #include <vector>
 #include "Parrent.h"
+#include "MCI.h"
 
 using WSTR = std::wstring;
 using std::vector;
@@ -195,5 +196,13 @@ private:
 	int count_row{ 0 }; //количество сгоревших рядов
 	
 	//уровень
-	int level{ 0 }; 
+	int level{ 0 };
+
+	//музыка
+	MSI music{ L"music.mp3" }; //основная музыка - коробейники
+	MSI clear_row{ L"row.mp3" }; //анимация - удаления ряда
+	MSI tetris{ L"tetris.mp3" }; //анимация - тетрис - 4 ряда
+	MSI game_over{ L"game_over.mp3" }; //game over - короткий звук
+	MSI twinpix{ L"twinpix.mp3" }; //игра окончена - играет твин пикс пока не нажмешь новую игру
+
 };

@@ -187,19 +187,12 @@ void Game::set_flash(set<int> Y_cont) {
 	flag_flash = true;
 	
 	if (Y_cont.size() == 4) {
-		STARTUPINFO start_info = { sizeof start_info };
-		PROCESS_INFORMATION proc_info = { 0 };
-		CreateProcess(L"sound2.exe", NULL, NULL, NULL, 0, 0, NULL, NULL, &start_info, &proc_info);
-		CloseHandle(proc_info.hThread);
-		CloseHandle(proc_info.hProcess);
-
+		tetris.stop();
+		tetris.play();
 	}
 	else {
-		STARTUPINFO start_info = { sizeof start_info };
-		PROCESS_INFORMATION proc_info = { 0 };
-		CreateProcess(L"sound1.exe", NULL, NULL, NULL, 0, 0, NULL, NULL, &start_info, &proc_info);
-		CloseHandle(proc_info.hThread);
-		CloseHandle(proc_info.hProcess);
+		clear_row.stop();
+		clear_row.play();
 	}
 }
 
@@ -544,15 +537,28 @@ void Game::play_sound() {
 
 	if (gs != old_gs) {
 		if (gs == Game_State::PLAY) {
-			PlaySound(L"music.wav", NULL, SND_ASYNC | SND_NODEFAULT | SND_LOOP); //включить основной трек
+			
+			if (old_gs == Game_State::GAME_OVER) {
+				twinpix.stop(); //завершаю трэк - подготавливаюсь к последующему воспроизведению 
+				music.play_repeat(); //включаю основной трек (c повтором) - коробейники
+			}
+			else if (old_gs == Game_State::PAUSE) {
+				music.resume();
+			}
 		}
 		else if (gs == Game_State::PAUSE) {
-			PlaySound(NULL, NULL, SND_PURGE); //отключить музыку
+
+			music.pause();
+			game_over.stop();
+			game_over.play(); //включаю звук окончания игры
 		}
 		else if (gs == Game_State::GAME_OVER) {
-			PlaySound(L"twinpix.wav", NULL, SND_ASYNC | SND_NODEFAULT | SND_LOOP); //включить музыку твин-пикс
-		}
 
+			game_over.stop();
+			game_over.play(); //включаю звук окончания игры
+			music.stop(); //отключаю основной трек
+			twinpix.play_repeat(); //включаю твин-пикс так как игра закончена
+		}
 	}
 	old_gs = gs;
 }
