@@ -426,8 +426,14 @@ void Objects::font_generation() {
 ---------------------------------------------------------------
 					  Ќачать новую игру
 --------------------------------------------------------------*/
-void Objects::new_game() {
-	game.new_game();
+int Objects::new_game_button() { //от кнопки
+	game.new_game_button();
+	return 0;
+}
+
+int Objects::new_game_menu() { //из меню
+	game.new_game_menu();
+	return 0;
 }
 
 
@@ -441,9 +447,14 @@ void Objects::game_state() {
 /*-------------------------------------------------------------
 							ѕауза
 --------------------------------------------------------------*/
-int Objects::pause() {
+int Objects::pause_esc() { //пауза esc
 
 		if (((lParam >> 30) & 1) == 0) //если перед нажатием клавиша была не нажата!
 			game.pause();			   //против автогенерации при удержании клавиши
 		return 0;
+}
+
+int Objects::pause_menu() { //пауза меню
+	game.pause();
+	return 0;
 }

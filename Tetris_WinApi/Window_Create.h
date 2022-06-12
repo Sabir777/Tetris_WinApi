@@ -28,7 +28,7 @@ HWND window_create(Func f, WSTR name_class, WSTR header_win, int width, int heig
 	wc.hInstance = hinst;
 	wc.lpfnWndProc = f;
 	wc.lpszClassName = name_class.c_str();
-	wc.lpszMenuName = nullptr;
+	wc.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 	wc.style = CS_VREDRAW | CS_HREDRAW;
 
 	WSTR message{ L"Error, can't register class: " };

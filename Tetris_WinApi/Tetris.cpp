@@ -159,10 +159,19 @@ int Tetris::wm_timer() {
 --------------------------------------------------------------*/
 int Tetris::wm_command() {
 	switch (LOWORD(m_wParam)) {
-	case static_cast<int> (Button::NEW_GAME):
-		obj.new_game();
+	case static_cast<int> (Button::NEW_GAME): //кнопка
+		return obj.new_game_button();
+	
+	case ID_40001: //меню
+		return obj.new_game_menu();
+
+	case ID_40002: //меню
+		return obj.pause_menu();
+
+	default: 
+		return DefWindowProc(m_hwnd, m_uMsg, m_wParam, m_lParam);
 	}
-	return 0;
+
 }
 
 
@@ -180,7 +189,7 @@ int Tetris::wm_keydown() {
 		return obj.down();
 
 	case VK_ESCAPE:
-		return obj.pause();
+		return obj.pause_esc();
 
 	default:
 		return DefWindowProc(m_hwnd, m_uMsg, m_wParam, m_lParam);

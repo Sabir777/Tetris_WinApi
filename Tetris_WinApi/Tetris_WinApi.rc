@@ -56,6 +56,24 @@ IDI_ICON1               ICON                    "games_tetris.ico"
 
 IDI_ICON2               ICON                    "tetris.ico"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "Игра"
+    BEGIN
+        MENUITEM "Новая игра",                  ID_40001
+        MENUITEM SEPARATOR
+        MENUITEM "Пауза",                       ID_40002
+        MENUITEM SEPARATOR
+        MENUITEM "Таблица рекордов",            ID_40003
+    END
+END
+
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////
 
