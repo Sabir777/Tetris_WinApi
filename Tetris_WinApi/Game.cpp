@@ -547,10 +547,7 @@ void Game::play_sound() {
 			}
 		}
 		else if (gs == Game_State::PAUSE) {
-
 			music.pause();
-			game_over.stop();
-			game_over.play(); //включаю звук окончания игры
 		}
 		else if (gs == Game_State::GAME_OVER) {
 

@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include <stdexcept>
+#include "resource.h"
 
 /*-------------------------------------------------------------
 			 Глобальная функция - создание окна
@@ -14,15 +15,17 @@ using STR = std::string;
 template<typename T>
 HWND window_create(Func f, WSTR name_class, WSTR header_win, int width, int height, T* p_obj) {
 
+	HINSTANCE hinst = GetModuleHandle(nullptr);
+
 	//создание класса окна и его заполнение
 	WNDCLASSEX wc{ sizeof(WNDCLASSEX) };
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(NULL_BRUSH));
 	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-	wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
-	wc.hInstance = GetModuleHandle(nullptr);
+	wc.hIcon = LoadIcon(hinst, MAKEINTRESOURCE(IDI_ICON1));
+	wc.hIconSm = LoadIcon(hinst, MAKEINTRESOURCE(IDI_ICON2));
+	wc.hInstance = hinst;
 	wc.lpfnWndProc = f;
 	wc.lpszClassName = name_class.c_str();
 	wc.lpszMenuName = nullptr;
