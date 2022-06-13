@@ -140,21 +140,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Figure.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Picture.cpp" />
+    <ClCompile Include="Records.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="MCI.cpp" />
+    <ClCompile Include="MSI.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="Scroll_records.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figure.h" />
+    <ClInclude Include="Get_time.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Picture.h" />
+    <ClInclude Include="Records.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="MCI.h" />
+    <ClInclude Include="MSI.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Parrent.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scroll_Parent.h" />
+    <ClInclude Include="Scroll_records.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Tetris.h" />
     <ClInclude Include="Window_Create.h" />
@@ -164,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="games_tetris.ico" />
+    <Image Include="record.ico" />
     <Image Include="tetris.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

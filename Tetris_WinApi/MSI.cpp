@@ -1,4 +1,4 @@
-#include "MCI.h"
+#include "MSI.h"
 
 /*-------------------------------------------------------------
             Создание объекта - открытие файла mp3
@@ -23,38 +23,57 @@ MSI::~MSI() {
                  Однократно проиграть музыку
 --------------------------------------------------------------*/
 void MSI::play() {
-    std::wstring msg = L"play " + file_name;
-    mciSendString(msg.c_str(), NULL, 0, NULL);
+    if (!flag_mute) {
+        std::wstring msg = L"play " + file_name;
+        mciSendString(msg.c_str(), NULL, 0, NULL);
+    }
 }
 
 /*-------------------------------------------------------------
                  Циклично проигрывать музыку
 --------------------------------------------------------------*/
 void MSI::play_repeat() {
-    std::wstring msg = L"play " + file_name + L" repeat";
-    mciSendString(msg.c_str(), NULL, 0, NULL);
+    if (!flag_mute) {
+        std::wstring msg = L"play " + file_name + L" repeat";
+        mciSendString(msg.c_str(), NULL, 0, NULL);
+    }
 }
 
 /*-------------------------------------------------------------
                         Установить паузу
 --------------------------------------------------------------*/
 void MSI::pause() {
-    std::wstring msg = L"pause " + file_name;
-    mciSendString(msg.c_str(), NULL, 0, 0);
+    if (!flag_mute) {
+        std::wstring msg = L"pause " + file_name;
+        mciSendString(msg.c_str(), NULL, 0, 0);
+    }
 }
 
 /*-------------------------------------------------------------
                          Снять с паузы
 --------------------------------------------------------------*/
 void MSI::resume() {
-    std::wstring msg = L"resume " + file_name;
-    mciSendString(msg.c_str(), NULL, 0, 0);
+    if (!flag_mute) {
+        std::wstring msg = L"resume " + file_name;
+        mciSendString(msg.c_str(), NULL, 0, 0);
+    }
 }
 
 /*-------------------------------------------------------------
                        Остановить музыку
 --------------------------------------------------------------*/
 void MSI::stop() {
-    std::wstring msg = L"stop " + file_name;
-    mciSendString(msg.c_str(), NULL, 0, 0);
+    if (!flag_mute) {
+        std::wstring msg = L"stop " + file_name;
+        mciSendString(msg.c_str(), NULL, 0, 0);
+    }
 }
+
+/*-------------------------------------------------------------
+                  Перестать проигрывать звуки
+--------------------------------------------------------------*/
+void MSI::mute() {
+    flag_mute = !flag_mute;
+}
+
+bool MSI::flag_mute{ false };

@@ -16,6 +16,10 @@ public:
 	void resume(); //сн€ть с паузы
 	void stop(); //остановить музыку
 
+	static void mute(); //отключить звук
+
 private:
 	std::wstring file_name;
+	static bool flag_mute;
 };
+

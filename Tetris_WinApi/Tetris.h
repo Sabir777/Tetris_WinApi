@@ -4,6 +4,7 @@
 #include <exception>
 #include "Window_Create.h"
 #include "Objects.h"
+#include "resource.h"
 
 
 

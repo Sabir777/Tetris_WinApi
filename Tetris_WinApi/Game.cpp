@@ -1,4 +1,5 @@
 #include "Game.h"
+//#include "MSI.h"
 
 /*-------------------------------------------------------------
 				   Конструктор с параметрами
@@ -144,6 +145,10 @@ void Game::game_state() {
 --------------------------------------------------------------*/
 	play_sound();
 
+/*-------------------------------------------------------------
+					  Записать новый рекорд
+--------------------------------------------------------------*/
+	new_record();
 }
 
 
@@ -553,15 +558,15 @@ void Game::update_window() {
 /*-------------------------------------------------------------
 							Музыка
 --------------------------------------------------------------*/
-void Game::play_sound() {
+void Game::play_sound(bool flag_mute_off) {
 	static Game_State old_gs = Game_State::GAME_OVER;
 	
 	Game_State gs = p_fig->get_game_state();
 
-	if (gs != old_gs) {
+	if (gs != old_gs || flag_mute_off) {
 		if (gs == Game_State::PLAY) {
 			
-			if (old_gs == Game_State::GAME_OVER) {
+			if (old_gs == Game_State::GAME_OVER || flag_mute_off) {
 				twinpix.stop(); //завершаю трэк - подготавливаюсь к последующему воспроизведению 
 				music.play_repeat(); //включаю основной трек (c повтором) - коробейники
 			}
@@ -569,16 +574,63 @@ void Game::play_sound() {
 				music.resume();
 			}
 		}
-		else if (gs == Game_State::PAUSE) {
+		else if (gs == Game_State::PAUSE && !flag_mute_off) {
+			music.pause();
+		}
+		else if (gs == Game_State::PAUSE && flag_mute_off) {
+			music.play_repeat();
 			music.pause();
 		}
 		else if (gs == Game_State::GAME_OVER) {
-
-			game_over.stop();
-			game_over.play(); //включаю звук окончания игры
+			if (!flag_mute_off) {
+				game_over.stop();
+				game_over.play(); //включаю звук окончания игры
+			}
 			music.stop(); //отключаю основной трек
 			twinpix.play_repeat(); //включаю твин-пикс так как игра закончена
 		}
 	}
 	old_gs = gs;
+}
+
+/*-------------------------------------------------------------
+				  Отключить / включить звук
+--------------------------------------------------------------*/
+void Game::mute() {
+	static bool flag_mute_on{ false };
+
+	if (!flag_mute_on) {
+		flag_mute_on = true;
+		music.stop();
+		twinpix.stop();
+		MSI::mute();
+	}
+	else {
+		flag_mute_on = false;
+		MSI::mute();
+		play_sound(true);
+	}
+}
+
+/*-------------------------------------------------------------
+			  Записать рекорд в таблицу рекордов
+--------------------------------------------------------------*/
+void Game::new_record() {
+	static Game_State old_gs = Game_State::PLAY;
+
+	Game_State gs = p_fig->get_game_state();
+
+	if (gs == Game_State::GAME_OVER && gs != old_gs) {
+	records.new_record(score);
+	}
+
+	old_gs = gs;
+}
+
+/*-------------------------------------------------------------
+				  Показать таблицу рекордов
+--------------------------------------------------------------*/
+void Game::show_records() {
+
+	records.show_window();	
 }

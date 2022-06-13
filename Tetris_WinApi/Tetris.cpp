@@ -162,11 +162,17 @@ int Tetris::wm_command() {
 	case static_cast<int> (Button::NEW_GAME): //кнопка
 		return obj.new_game_button();
 	
-	case ID_40001: //меню
+	case ID_40001: //меню: новая игра
 		return obj.new_game_menu();
 
-	case ID_40002: //меню
+	case ID_40002: //меню: пауза
 		return obj.pause_menu();
+
+	case ID_40003: //меню: таблица рекордов
+		return obj.show_records();
+
+	case ID_40004: //отключить / включить звук
+		return obj.mute();
 
 	default: 
 		return DefWindowProc(m_hwnd, m_uMsg, m_wParam, m_lParam);
